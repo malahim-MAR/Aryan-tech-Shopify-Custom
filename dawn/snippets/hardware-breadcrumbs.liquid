@@ -1,0 +1,11 @@
+<nav class="tech-crumbs" aria-label="Breadcrumb">
+  <a href="{{ routes.root_url }}">Home</a>
+  <span aria-hidden="true">›</span>
+  <a href="{{ routes.all_products_collection_url }}">Shop</a>
+  {% if product and collection %}
+    <span aria-hidden="true">›</span>
+    <a href="{{ collection.url }}">{{ collection.title | escape }}</a>
+  {% endif %}
+  <span aria-hidden="true">›</span>
+  <span aria-current="page">{{ product.title | default: collection.title | escape }}</span>
+</nav>

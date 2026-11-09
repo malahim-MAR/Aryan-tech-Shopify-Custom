@@ -1,0 +1,48 @@
+{%- liquid
+  assign source = section.settings.collection | default: collections.all
+  assign arrivals = source.products | where: 'available', true | sort: 'published_at' | reverse
+-%}
+{%- if arrivals.size > 0 or request.design_mode -%}
+  {{ 'tech-catalog.css' | asset_url | stylesheet_tag }}
+  {{ 'component-card.css' | asset_url | stylesheet_tag }}
+  <section class="tech-catalog page-width" aria-labelledby="Arrivals-{{ section.id }}">
+    <slider-component>
+      <div class="tech-catalog__head">
+        <div>
+          <h2 id="Arrivals-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+          <p>Recently added and ready to order.</p>
+        </div>
+        <div class="tech-catalog__controls">
+          <a href="{{ source.url | default: routes.all_products_collection_url }}?sort_by=created-descending">All new arrivals <span aria-hidden="true">→</span></a>
+          {%- if arrivals.size > 1 -%}
+            <button type="button" name="previous" aria-controls="Slider-{{ section.id }}" aria-label="{{ 'general.slider.previous_slide' | t }}">←</button>
+            <button type="button" name="next" aria-controls="Slider-{{ section.id }}" aria-label="{{ 'general.slider.next_slide' | t }}">→</button>
+          {%- endif -%}
+        </div>
+      </div>
+      {%- if arrivals.size > 0 -%}
+        <ul class="tech-catalog__rail" role="list" id="Slider-{{ section.id }}">
+          {%- for item in arrivals limit: 12 -%}
+            <li id="Slide-{{ section.id }}-{{ forloop.index }}">
+              {%- assign skip_styles = true -%}
+              {%- if forloop.first -%}{%- assign skip_styles = false -%}{%- endif -%}
+              {% render 'card-product', card_product: item, section_id: section.id, show_vendor: true, media_aspect_ratio: 'square', skip_styles: skip_styles %}
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p>Available products appear here when you add them to your catalog.</p>
+      {%- endif -%}
+    </slider-component>
+  </section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Latest hardware",
+  "settings": [
+    {"type": "text", "id": "heading", "label": "Heading", "default": "Just landed."},
+    {"type": "collection", "id": "collection", "label": "Arrivals collection", "info": "Choose a collection sorted newest first for large catalogs."}
+  ],
+  "presets": [{"name": "Latest hardware"}]
+}
+{% endschema %}

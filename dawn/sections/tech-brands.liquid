@@ -1,0 +1,28 @@
+{%- if shop.vendors.size > 0 or request.design_mode -%}
+  {{ 'tech-catalog.css' | asset_url | stylesheet_tag }}
+  <section id="tech-brands" class="tech-brands" aria-labelledby="Brands-{{ section.id }}">
+    <div class="page-width">
+      <div class="tech-catalog__head">
+        <h2 id="Brands-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+        <p>Browse hardware by manufacturer.</p>
+      </div>
+      {%- if shop.vendors.size > 0 -%}
+        <ul class="tech-brands__list" role="list">
+          {% for brand in shop.vendors %}
+            <li><a href="{{ brand | url_for_vendor }}">{{ brand | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      {%- else -%}
+        <p>Add a vendor to a product to display it here.</p>
+      {%- endif -%}
+    </div>
+  </section>
+{%- endif -%}
+{% schema %}
+{
+  "limit": 1,
+  "name": "Hardware brands",
+  "settings": [{"type": "text", "id": "heading", "label": "Heading", "default": "Brands on the shelf"}],
+  "presets": [{"name": "Hardware brands"}]
+}
+{% endschema %}

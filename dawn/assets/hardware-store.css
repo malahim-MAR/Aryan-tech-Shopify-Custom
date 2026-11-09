@@ -1,0 +1,139 @@
+.tech-wrap {
+  width: min(100%, 1400px);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 40px);
+  color: #111b28;
+  letter-spacing: normal;
+}
+.tech-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(24px, 4vw, 64px);
+  padding-block: clamp(22px, 3.5vw, 48px) clamp(40px, 6vw, 88px);
+  min-height: min(780px, calc(100svh - 120px));
+}
+.tech-intro h1 {
+  font-size: clamp(52px, 6.6vw, 96px);
+  font-weight: 800;
+  line-height: .94;
+  letter-spacing: -.065em;
+  margin: 14px 0 24px;
+}
+.tech-intro p { color: #444e5b; max-width: 38ch; font-size: 18px; line-height: 1.5; margin: 0 0 30px; }
+.tech-kicker {
+  display: inline-block;
+  background: #deedff;
+  color: #125fb3;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 100px;
+}
+.tech-cta, .tech-department-heading a {
+  display: inline-flex;
+  gap: 12px;
+  align-items: center;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 13px 22px;
+  color: white;
+  background: #125fb3;
+  font-weight: 700;
+}
+.tech-cta:hover { background: #004b96; }
+.tech-showcase { position: relative; min-width: 0; display: block; }
+.tech-stage {
+  display: grid;
+  place-items: center;
+  position: relative;
+  height: clamp(320px, 34vw, 495px);
+  background: radial-gradient(ellipse closest-side, #cee3fc, transparent 100%);
+}
+.tech-stage::after {
+  content: '';
+  position: absolute;
+  width: 52%;
+  height: 6%;
+  bottom: 3%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, #344c6b38, transparent);
+  filter: blur(4px);
+}
+.tech-stage::before {
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: #125fb3;
+  border-radius: 3px;
+  top: 12%;
+  left: 7%;
+  box-shadow: min(39vw, 560px) 55px 0 -3px #15202d, 28px min(22vw, 300px) 0 -3px #4c92d9;
+}
+.tech-stage img { width: 86%; height: 94%; min-height: 0; object-fit: contain; position: relative; }
+.tech-caption { border-top: 1px solid #dce0e5; padding: 16px 145px 0 0; min-height: 90px; }
+.tech-caption small { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; color: #4b5868; letter-spacing: .07em; }
+.tech-caption a { display: inline-block; color: inherit; font-size: clamp(18px, 2vw, 25px); font-weight: 750; text-decoration: none; line-height: 1.16; }
+.tech-caption a:hover, .tech-department-heading a:hover { color: #125fb3; }
+.tech-controls { position: absolute; right: 0; bottom: 18px; display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.tech-controls[hidden], .tech-slide[hidden] { display: none; }
+.tech-controls button { border: 1px solid #c5cbd2; background: #fff; color: #111b28; width: 40px; height: 40px; border-radius: 50%; font-size: 19px; cursor: pointer; }
+.tech-controls button:hover { background: #deedff; }
+.tech-departments { padding-block: clamp(40px, 5vw, 80px); }
+.tech-department-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 24px; }
+.tech-department-heading h2, .collection__title .title, .collection-hero__title, .main-page-title, .product__title h1 { font-size: clamp(32px, 4vw, 64px); font-weight: 800; line-height: 1; letter-spacing: -.05em; margin-block: 0; }
+.tech-department-heading a { flex: none; border: 1px solid #dce0e5; color: #111b28; background: transparent; font-size: 14px; padding: 8px 14px; }
+.tech-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-flow: dense; grid-auto-rows: clamp(190px, 17vw, 240px); gap: 14px; }
+.tech-tile { background: #edf0f4; color: #15202d; position: relative; overflow: hidden; border-radius: 16px; padding: 20px; text-decoration: none; }
+.tech-tile strong { display: block; max-width: 70%; font-size: clamp(19px, 2vw, 25px); letter-spacing: -.035em; line-height: 1.03; }
+.tech-tile small, .tech-tile strong { position: relative; z-index: 1; }
+.tech-tile img { position: absolute; width: 64%; height: 70%; right: 3%; bottom: 4%; object-fit: contain; mix-blend-mode: multiply; }
+.tech-tile:first-child { grid-area: span 2 / span 2; padding: clamp(22px, 2.4vw, 32px); background: #0859ac; color: #fff; }
+.tech-tile:first-child strong { font-size: clamp(36px, 4.5vw, 68px); max-width: 55%; }
+.tech-tile:first-child img { mix-blend-mode: normal; width: 83%; height: 76%; bottom: 0; right: -3%; }
+.tech-tile:nth-child(2) { grid-column: span 2; }
+.tech-tile:nth-child(2) img { height: 86%; width: 55%; }
+.tech-link-arrow { position: absolute; right: 16px; top: 12px; font-size: 20px; }
+.card__heading { font-weight: 700; letter-spacing: -.02em; }
+.product__info-wrapper .price { font-weight: 700; }
+@media (max-width: 989px) {
+  .tech-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 749px) {
+  .tech-hero { grid-template-columns: minmax(0, 1fr); gap: 20px; min-height: auto; }
+  .tech-intro h1 { max-width: 11ch; font-size: clamp(49px, 11vw, 78px); margin-block: 12px 16px; }
+  .tech-intro p { margin-bottom: 20px; font-size: 16px; }
+  .tech-stage { height: clamp(240px, 68vw, 400px); }
+  .tech-stage::before { box-shadow: 68vw 35px 0 -3px #15202d; }
+  .tech-caption { padding-right: 120px; }
+  .tech-controls { gap: 4px; }
+  .tech-controls button { width: 34px; height: 34px; }
+  .tech-tiles { gap: 10px; grid-auto-rows: 165px; }
+  .tech-tile { padding: 14px; }
+  .tech-tile img { height: 62%; }
+  .tech-department-heading { align-items: start; flex-wrap: wrap; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tech-intro, .tech-slide:not([hidden]) { animation: hardware-fade .45s ease-out both; }
+  .tech-tile img { transition: transform .25s ease-out; }
+  .tech-tile:hover img { transform: translateY(-3px) scale(1.025); }
+  @keyframes hardware-fade { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+}
+.tech-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #505b66; font-size: 13px; margin: 0 0 24px; }
+.tech-crumbs a { color: inherit; text-decoration: none; }
+.tech-crumbs a:hover { text-decoration: underline; }
+.tech-crumbs [aria-current] { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: min(65vw, 55ch); }
+.collection-hero .tech-crumbs { padding-top: 24px; }
+.tech-collection-intro { display: flex; justify-content: space-between; align-items: center; gap: 24px; padding-block: 12px 40px; }
+.tech-collection-intro > div { flex: 1; }
+.tech-collection-intro img { width: 42%; height: clamp(200px, 22vw, 320px); object-fit: contain; background: #edf0f4; border-radius: 16px; padding: 16px; }
+.tech-collection-intro .tech-cta { margin-top: 12px; }
+.product__info-container .product__title h1 { font-size: clamp(28px, 3vw, 48px); line-height: 1.06; }
+.product__media-wrapper .product-media-container { background-color: #edf0f4; border-radius: 16px; overflow: hidden; }
+@media (max-width: 749px) {
+  .tech-collection-intro { flex-direction: column; align-items: stretch; }
+  .tech-collection-intro img { width: 100%; height: 220px; }
+}
+.tech-caption form { margin-top: 10px; }
+.tech-caption button.tech-cta { font: inherit; font-weight: 700; font-size: 14px; border: 0; cursor: pointer; padding: 9px 15px; }

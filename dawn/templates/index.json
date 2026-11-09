@@ -1,0 +1,181 @@
+{
+  "sections": {
+    "showcase": {
+      "type": "hardware-showcase",
+      "blocks": {
+        "graphics": {
+          "type": "feature",
+          "settings": {
+            "title": "ROG Astral GeForce RTX 5080",
+            "label": "Graphics cards",
+            "art": "tech-hero.webp",
+            "query": "graphics card"
+          }
+        },
+        "displays": {
+          "type": "feature",
+          "settings": {
+            "title": "Gaming monitors",
+            "label": "Monitors & displays",
+            "art": "tech-monitors.webp",
+            "query": "monitor"
+          }
+        },
+        "chassis": {
+          "type": "feature",
+          "settings": {
+            "title": "Gaming PC cases",
+            "label": "PC components",
+            "art": "tech-cases.webp",
+            "query": "case"
+          }
+        }
+      },
+      "block_order": [
+        "graphics",
+        "displays",
+        "chassis"
+      ],
+      "settings": {}
+    },
+    "departments": {
+      "type": "hardware-categories",
+      "blocks": {
+        "graphics_cards": {
+          "type": "department",
+          "settings": {
+            "title": "Graphics cards",
+            "query": "graphics card",
+            "art": "tech-graphics-cards.webp"
+          }
+        },
+        "monitors": {
+          "type": "department",
+          "settings": {
+            "title": "Monitors",
+            "query": "monitor",
+            "art": "tech-monitors.webp"
+          }
+        },
+        "laptops": {
+          "type": "department",
+          "settings": {
+            "title": "Laptops",
+            "query": "laptop",
+            "art": "tech-laptops.webp"
+          }
+        },
+        "cases": {
+          "type": "department",
+          "settings": {
+            "title": "PC cases",
+            "query": "case",
+            "art": "tech-cases.webp"
+          }
+        },
+        "keyboards": {
+          "type": "department",
+          "settings": {
+            "title": "Keyboards",
+            "query": "keyboard",
+            "art": "tech-keyboards.webp"
+          }
+        },
+        "mice": {
+          "type": "department",
+          "settings": {
+            "title": "Mice",
+            "query": "mouse",
+            "art": "tech-mice.webp"
+          }
+        },
+        "headphones": {
+          "type": "department",
+          "settings": {
+            "title": "Headphones",
+            "query": "headphones",
+            "art": "tech-headphones.webp"
+          }
+        },
+        "chairs": {
+          "type": "department",
+          "settings": {
+            "title": "Gaming chairs",
+            "query": "gaming chair",
+            "art": "tech-chairs.webp"
+          }
+        }
+      },
+      "block_order": [
+        "graphics_cards",
+        "monitors",
+        "laptops",
+        "cases",
+        "keyboards",
+        "mice",
+        "headphones",
+        "chairs"
+      ],
+      "settings": {}
+    },
+    "deals": {
+      "type": "tech-deals",
+      "settings": {}
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured tech & handpicked hardware",
+        "collection": "all",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "image_ratio": "square",
+        "show_vendor": true,
+        "quick_add": "standard",
+        "show_view_all": true
+      }
+    },
+    "brands": {
+      "type": "tech-brands",
+      "settings": {}
+    },
+    "latest": {
+      "type": "tech-latest",
+      "settings": {}
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "disabled": true,
+      "settings": {
+        "title": "Best sellers",
+        "collection": "",
+        "products_to_show": 8,
+        "columns_desktop": 4,
+        "image_ratio": "square",
+        "show_vendor": true,
+        "quick_add": "standard",
+        "show_view_all": true
+      }
+    },
+    "guides": {
+      "type": "featured-blog",
+      "disabled": true,
+      "settings": {
+        "heading": "Hardware guides & benchmarks",
+        "show_image": true,
+        "show_date": true,
+        "post_limit": 3
+      }
+    }
+  },
+  "order": [
+    "showcase",
+    "departments",
+    "deals",
+    "featured_collection",
+    "brands",
+    "latest",
+    "bestsellers",
+    "guides"
+  ]
+}

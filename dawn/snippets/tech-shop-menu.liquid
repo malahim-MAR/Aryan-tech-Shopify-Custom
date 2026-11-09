@@ -1,0 +1,28 @@
+{% doc %}
+  Renders desktop store navigation alongside the merchant's main menu.
+{% enddoc %}
+<li>
+  <header-menu>
+    <details class="tech-shop-menu" id="Details-HeaderDepartments">
+      <summary class="header__menu-item list-menu__item link focus-inset">Shop {{ 'icon-caret.svg' | inline_asset_content }}</summary>
+      {% render 'tech-directory' %}
+    </details>
+  </header-menu>
+</li>
+<li>
+  <a class="header__menu-item list-menu__item link focus-inset" href="{{ routes.all_products_collection_url }}?sort_by=created-descending">Latest</a>
+</li>
+{% if shop.vendors.size > 0 %}
+  <li>
+    <header-menu>
+      <details class="tech-shop-menu" id="Details-HeaderBrands">
+        <summary class="header__menu-item list-menu__item link focus-inset">Brands {{ 'icon-caret.svg' | inline_asset_content }}</summary>
+        <ul class="tech-directory tech-directory--brands list-unstyled">
+          {% for vendor in shop.vendors %}
+            <li><a href="{{ vendor | url_for_vendor }}">{{ vendor | escape }}</a></li>
+          {% endfor %}
+        </ul>
+      </details>
+    </header-menu>
+  </li>
+{% endif %}

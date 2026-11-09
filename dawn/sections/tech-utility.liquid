@@ -1,0 +1,19 @@
+<div class="tech-utility">
+  <div class="tech-utility__inner page-width">
+    <span><i aria-hidden="true"></i>{{ section.settings.message | escape }}</span>
+    <a href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.link_text | escape }} <span aria-hidden="true">→</span></a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Store utility bar",
+  "enabled_on": { "groups": ["header"] },
+  "settings": [
+    { "type": "text", "id": "message", "label": "Message", "default": "PC hardware & gaming peripherals" },
+    { "type": "text", "id": "link_text", "label": "Link label", "default": "Browse the catalog" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "presets": [{ "name": "Store utility bar" }]
+}
+{% endschema %}

@@ -1,0 +1,85 @@
+<section class="tech-wrap tech-hero" aria-labelledby="hero-{{ section.id }}">
+  <div class="tech-intro">
+    {% if section.settings.label != blank %}<span class="tech-kicker">{{ section.settings.label | escape }}</span>{% endif %}
+    <h1 id="hero-{{ section.id }}">{{ section.settings.title | escape }}</h1>
+    <p>{{ section.settings.description | escape }}</p>
+    <a class="tech-cta" href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.button | escape }} <span aria-hidden="true">→</span></a>
+  </div>
+  {% if section.blocks.size > 0 %}
+    <hardware-showcase class="tech-showcase" aria-label="Featured hardware">
+      {% for block in section.blocks %}
+        {% liquid
+          assign item = block.settings.product
+          assign photo = block.settings.image | default: item.featured_image
+          assign name = item.title | default: block.settings.title
+          assign destination = item.url | default: block.settings.link
+          unless destination
+            assign query = block.settings.query | default: name | url_encode
+            assign destination = routes.search_url | append: '?type=product&q=' | append: query
+          endunless
+          assign loading = 'lazy'
+          if forloop.first
+            assign loading = 'eager'
+          endif
+        %}
+        <article class="tech-slide" data-slide {{ block.shopify_attributes }} {% unless forloop.first %}hidden{% endunless %}>
+          <a class="tech-stage" href="{{ destination }}" aria-label="{{ name | escape }}">
+            {% if photo %}
+              {{ photo | image_url: width: 1100 | image_tag: widths: '360, 540, 750, 900, 1100', sizes: '(min-width: 850px) 55vw, 92vw', loading: loading, alt: name }}
+            {% else %}
+              <img src="{{ block.settings.art | asset_url }}" alt="{{ name | escape }}" width="900" height="650" loading="{{ loading }}">
+            {% endif %}
+          </a>
+          <div class="tech-caption">
+            <div>
+              <small>{{ item.vendor | default: block.settings.label | escape }}{% if item %} · {% if item.available %}In stock{% else %}Sold out{% endif %}{% endif %}</small>
+              <a href="{{ destination }}">{{ name | escape }} <span aria-hidden="true">↗</span></a>
+              {% if item %}
+                {% render 'price', product: item %}
+                {% if item.available and item.has_only_default_variant and item.requires_selling_plan == false %}
+                  {% assign variant = item.selected_or_first_available_variant %}
+                  {% assign form_id = 'ShowcaseForm-' | append: section.id | append: '-' | append: block.id %}
+                  {% form 'product', item, id: form_id %}
+                    <input type="hidden" name="id" value="{{ variant.id }}">
+                    <input type="hidden" name="quantity" value="{{ variant.quantity_rule.min | default: 1 }}">
+                    <button class="tech-cta" type="submit">{{ 'products.product.add_to_cart' | t }}</button>
+                  {% endform %}
+                {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        </article>
+      {% endfor %}
+      {% if section.blocks.size > 1 %}
+        <div class="tech-controls" hidden>
+          <button type="button" data-prev aria-label="Previous feature">←</button>
+          <span aria-live="polite"><b data-count>1</b> / {{ section.blocks.size }}</span>
+          <button type="button" data-next aria-label="Next feature">→</button>
+        </div>
+      {% endif %}
+    </hardware-showcase>
+  {% endif %}
+</section>
+<script src="{{ 'hardware-showcase.js' | asset_url }}" defer="defer"></script>
+{% schema %}
+{
+  "name": "Hardware showcase",
+  "settings": [
+    {"type":"text","id":"label","label":"Eyebrow","default":"PC hardware"},
+    {"type":"text","id":"title","label":"Headline","default":"Everything your setup is missing."},
+    {"type":"textarea","id":"description","label":"Description","default":"Discover graphics cards, gaming monitors and the components for your next PC build."},
+    {"type":"text","id":"button","label":"Button label","default":"Shop hardware"},
+    {"type":"url","id":"link","label":"Button link"}
+  ],
+  "blocks":[{"type":"feature","name":"Hardware feature","settings":[
+    {"type":"product","id":"product","label":"Product"},
+    {"type":"image_picker","id":"image","label":"Image override"},
+    {"type":"text","id":"title","label":"Fallback title","default":"ROG Astral GeForce RTX 5080"},
+    {"type":"text","id":"label","label":"Fallback category","default":"Graphics cards"},
+    {"type":"url","id":"link","label":"Fallback destination"},
+    {"type":"text","id":"query","label":"Fallback product search","default":"graphics card"},
+    {"type":"select","id":"art","label":"Built-in artwork","default":"tech-hero.webp","options":[{"value":"tech-hero.webp","label":"Graphics card"},{"value":"tech-monitors.webp","label":"Monitor"},{"value":"tech-cases.webp","label":"Case"}]}
+  ]}],
+  "presets":[{"name":"Hardware showcase","blocks":[{"type":"feature"}]}]
+}
+{% endschema %}

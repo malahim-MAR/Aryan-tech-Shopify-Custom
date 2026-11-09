@@ -1,0 +1,63 @@
+{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
+{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  @media screen and (max-width: 749px) {
+    .collection-hero--with-image .collection-hero__inner {
+      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+    }
+  }
+{%- endstyle -%}
+
+{% assign showcase_image = collection.image | default: collection.products.first.featured_image %}
+<div class="collection-hero color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    {% render 'hardware-breadcrumbs', collection: collection %}
+    <div class="tech-collection-intro">
+      <div>
+        <h1 class="collection-hero__title">{{ collection.title | escape }}</h1>
+        <p>{{ collection.all_products_count }} products</p>
+        {% if section.settings.show_collection_description and collection.description != blank %}
+          <div class="collection-hero__description rte">{{ collection.description }}</div>
+        {% endif %}
+        {% if collection.all_products_count > 0 %}
+          <a class="tech-cta" href="#ProductGridContainer">Browse products <span aria-hidden="true">↓</span></a>
+        {% endif %}
+      </div>
+      {% if section.settings.show_collection_image and showcase_image %}
+        {{ showcase_image | image_url: width: 1000 | image_tag: widths: '360, 540, 750, 1000', sizes: '(min-width: 750px) 40vw, 100vw', loading: 'eager', alt: '' }}
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.main-collection-banner.name",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "t:sections.main-collection-banner.settings.paragraph.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_description",
+      "default": true,
+      "label": "t:sections.main-collection-banner.settings.show_collection_description.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_image",
+      "default": false,
+      "label": "t:sections.main-collection-banner.settings.show_collection_image.label"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    }
+  ]
+}
+{% endschema %}
