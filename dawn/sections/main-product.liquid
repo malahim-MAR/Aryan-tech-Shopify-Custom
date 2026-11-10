@@ -1,6 +1,6 @@
 <product-info
   id="MainProduct-{{ section.id }}"
-  class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
+  class="at-product section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
   data-update-url="true"
@@ -24,6 +24,7 @@
   {%- if product.quantity_price_breaks_configured? -%}
     {{ 'component-volume-pricing.css' | asset_url | stylesheet_tag }}
   {%- endif -%}
+  {{ 'at-product.css' | asset_url | stylesheet_tag }}
 
   {%- style -%}
     .section-{{ section.id }}-padding {
@@ -75,7 +76,7 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <product-component view-event-payload="{{ product | standard_event_data: 'view', context: 'page' | escape }}">
     <div class="page-width">
-    {% render 'hardware-breadcrumbs', product: product, collection: collection %}
+      {% render 'hardware-breadcrumbs', product: product, collection: collection %}
       <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
         <div class="grid__item product__media-wrapper">
           {% render 'product-media-gallery', variant_images: variant_images %}
@@ -108,13 +109,19 @@
                     </a>
                   </div>
                 {%- when 'price' -%}
-                  <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                  <div class="at-product__price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                     {%- render 'price',
                       product: product,
                       use_variant: true,
                       show_badges: true,
                       price_class: 'price--large'
                     -%}
+                    {%- assign priced_variant = product.selected_or_first_available_variant -%}
+                    {%- if priced_variant.compare_at_price > priced_variant.price and priced_variant.available -%}
+                      <span class="at-saving">
+                        Save {{ priced_variant.compare_at_price | minus: priced_variant.price | times: 100.0 | divided_by: priced_variant.compare_at_price | round }}%
+                      </span>
+                    {%- endif -%}
                   </div>
                   {%- if product.quantity_price_breaks_configured? -%}
                     <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -688,6 +695,16 @@
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
             {%- endfor -%}
+            {%- if shop.shipping_policy.body != blank or shop.refund_policy.body != blank -%}
+              <div class="at-policy-links quick-add-hidden">
+                {%- if shop.shipping_policy.body != blank -%}
+                  <a href="{{ shop.shipping_policy.url }}">{{ 'icon-truck.svg' | inline_asset_content }} {{ shop.shipping_policy.title | escape }}</a>
+                {%- endif -%}
+                {%- if shop.refund_policy.body != blank -%}
+                  <a href="{{ shop.refund_policy.url }}">{{ 'icon-return.svg' | inline_asset_content }} {{ shop.refund_policy.title | escape }}</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
             <a href="{{ product.url }}" class="link product__view-details animate-arrow">
               {{ 'products.product.view_full_details' | t }}
               {{- 'icon-arrow.svg' | inline_asset_content -}}
@@ -749,6 +766,16 @@
       </script>
     </div>
   </product-component>
+  {%- assign buy_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
+  {%- if section.settings.show_purchase_bar and buy_block and request.page_type == 'product' -%}
+    <at-purchase-bar class="at-purchase-bar quick-add-hidden" hidden>
+      <div class="at-purchase-bar__inner page-width">
+        <div><strong>{{ product.title | escape }}</strong><span data-bar-price></span></div>
+        <button type="button" class="button button--primary" disabled>{{ 'products.product.add_to_cart' | t }}</button>
+      </div>
+    </at-purchase-bar>
+    <script src="{{ 'at-purchase-bar.js' | asset_url }}" defer></script>
+  {%- endif -%}
 </product-info>
 
 {% schema %}
@@ -881,6 +908,12 @@
       "name": "t:sections.main-product.blocks.variant_picker.name",
       "limit": 1,
       "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_choice_images",
+          "label": "Show variant photos in color buttons",
+          "default": true
+        },
         {
           "type": "select",
           "id": "picker_type",
@@ -2150,6 +2183,12 @@
       "id": "enable_sticky_info",
       "default": true,
       "label": "t:sections.main-product.settings.enable_sticky_info.label"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_purchase_bar",
+      "default": true,
+      "label": "Show purchase bar after scrolling"
     },
     {
       "type": "color_scheme",

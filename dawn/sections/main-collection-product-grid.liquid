@@ -155,6 +155,7 @@
                   {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
                 "
               >
+
                 {% assign skip_card_product_styles = false %}
                 {%- for product in collection.products -%}
                   {% assign lazy_load = false %}
@@ -168,19 +169,13 @@
                       style="--animation-order: {{ forloop.index }};"
                     {% endif %}
                   >
-                    {% render 'card-product',
-                      card_product: product,
-                      media_aspect_ratio: section.settings.image_ratio,
-                      image_shape: section.settings.image_shape,
-                      show_secondary_image: section.settings.show_secondary_image,
-                      show_vendor: section.settings.show_vendor,
-                      show_rating: section.settings.show_rating,
-                      lazy_load: lazy_load,
-                      skip_styles: skip_card_product_styles,
-                      quick_add: section.settings.quick_add,
-                      section_id: section.id,
-                      product_view_context: 'collection'
-                    %}
+                    {% assign image_loading = 'lazy' %}
+                    {% unless lazy_load %}{% assign image_loading = 'eager' %}{% endunless %}
+                    {% if section.settings.use_catalog_cards and section.settings.quick_add == 'none' %}
+                      {% render 'aryan-catalog-card', item: product, loading: image_loading %}
+                    {% else %}
+                      {% render 'card-product', card_product: product, media_aspect_ratio: section.settings.image_ratio, image_shape: section.settings.image_shape, show_secondary_image: section.settings.show_secondary_image, show_vendor: section.settings.show_vendor, show_rating: section.settings.show_rating, lazy_load: lazy_load, skip_styles: skip_card_product_styles, quick_add: section.settings.quick_add, section_id: section.id, product_view_context: 'collection' %}
+                    {% endif %}
                   </li>
                   {%- assign skip_card_product_styles = true -%}
                 {%- endfor -%}
@@ -205,6 +200,7 @@
   "name": "t:sections.main-collection-product-grid.name",
   "class": "section",
   "settings": [
+    {"type":"checkbox","id":"use_catalog_cards","label":"Use Aryan Tech product cards","info":"Applies when quick add is set to None.","default":true},
     {
       "type": "range",
       "id": "products_per_page",

@@ -31,25 +31,7 @@
         <div class="menu-drawer__navigation-container">
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
-              {% if section.settings.hardware_directory %}
-                <li>
-                  <details id="Details-menu-drawer-departments">
-                    <summary class="menu-drawer__menu-item list-menu__item link link--text focus-inset">
-                      Shop by department
-                      <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span>
-                    </summary>
-                    <div class="menu-drawer__submenu has-submenu gradient motion-reduce" tabindex="-1">
-                      <div class="menu-drawer__inner-submenu">
-                        <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
-                          <span class="svg-wrapper">{{ 'icon-arrow.svg' | inline_asset_content }}</span> Shop by department
-                        </button>
-                        {% render 'tech-directory', placement: 'drawer' %}
-                      </div>
-                    </div>
-                  </details>
-                </li>
-                <li><a class="menu-drawer__menu-item list-menu__item link link--text focus-inset" href="{{ routes.all_products_collection_url }}?sort_by=created-descending">Latest arrivals</a></li>
-              {% endif %}
+              {% if section.settings.menu == blank and section.settings.catalog_fallback %}{% render 'aryan-catalog-links', placement: 'drawer' %}{% endif %}
               {%- for link in section.settings.menu.links -%}
                 <li>
                   {%- if link.links != blank -%}

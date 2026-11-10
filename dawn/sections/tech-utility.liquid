@@ -1,19 +1,27 @@
-<div class="tech-utility">
-  <div class="tech-utility__inner page-width">
-    <span><i aria-hidden="true"></i>{{ section.settings.message | escape }}</span>
-    <a href="{{ section.settings.link | default: routes.all_products_collection_url }}">{{ section.settings.link_text | escape }} <span aria-hidden="true">→</span></a>
-  </div>
-</div>
+<a class="at-ticker" href="{{ section.settings.link | default: routes.all_products_collection_url }}">
+  <span class="visually-hidden">{{ section.settings.message | escape }}. {{ section.settings.link_text | escape }}</span>
+  <span class="at-ticker__track" aria-hidden="true">
+    {% for copy in (1..2) %}
+      <span class="at-ticker__group">
+        {% for repeat in (1..6) %}
+          <span>{{ section.settings.message | escape }}</span>
+          <span class="at-ticker__button">{{ section.settings.link_text | escape }}</span>
+          <span class="at-ticker__dot">•</span>
+        {% endfor %}
+      </span>
+    {% endfor %}
+  </span>
+</a>
 
 {% schema %}
 {
-  "name": "Store utility bar",
+  "name": "Announcement ticker",
   "enabled_on": { "groups": ["header"] },
   "settings": [
-    { "type": "text", "id": "message", "label": "Message", "default": "PC hardware & gaming peripherals" },
-    { "type": "text", "id": "link_text", "label": "Link label", "default": "Browse the catalog" },
-    { "type": "url", "id": "link", "label": "Link" }
+    { "type": "text", "id": "message", "label": "Announcement", "default": "Explore the latest gaming gear" },
+    { "type": "text", "id": "link_text", "label": "Link label", "default": "Shop now" },
+    { "type": "url", "id": "link", "label": "Destination" }
   ],
-  "presets": [{ "name": "Store utility bar" }]
+  "presets": [{ "name": "Announcement ticker" }]
 }
 {% endschema %}

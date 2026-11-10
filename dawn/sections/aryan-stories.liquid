@@ -1,0 +1,22 @@
+{% if section.blocks.size > 0 %}
+<nav class="at-stories at-shell" aria-label="Shop by category">
+  {% for block in section.blocks %}
+    {% assign category = block.settings.collection %}
+    {% if category != blank %}
+      <a href="{{ category.url }}" {{ block.shopify_attributes }}>
+        {% if block.settings.image %}
+          {{ block.settings.image | image_url: width: 180 | image_tag: loading: 'lazy', alt: '' }}
+        {% elsif block.settings.art != blank %}
+          <img src="{{ block.settings.art | asset_url }}" width="85" height="85" alt="" loading="lazy">
+        {% elsif category.featured_image %}
+          {{ category.featured_image | image_url: width: 180 | image_tag: loading: 'lazy', alt: '' }}
+        {% endif %}
+        {{ block.settings.title | default: category.title | escape }}
+      </a>
+    {% endif %}
+  {% endfor %}
+</nav>
+{% endif %}
+{% schema %}
+{"name":"Category stories","blocks":[{"type":"category","name":"Category","settings":[{"type":"collection","id":"collection","label":"Collection"},{"type":"text","id":"title","label":"Label override"},{"type":"image_picker","id":"image","label":"Artwork"},{"type":"select","id":"art","label":"Built-in artwork","options":[{"value":"aryan-keyboards.webp","label":"Keyboards"},{"value":"aryan-mouse.webp","label":"Mice"},{"value":"aryan-mousepads.webp","label":"Mousepads"},{"value":"aryan-key-caps.webp","label":"Keycaps"},{"value":"aryan-key-switches.webp","label":"Switches"},{"value":"aryan-x-raypad.webp","label":"X-Raypad"},{"value":"aryan-accessories.webp","label":"Accessories"},{"value":"aryan-gamingfuel.webp","label":"Gaming fuel"}],"default":"aryan-keyboards.webp"}]}],"presets":[{"name":"Category stories"}]}
+{% endschema %}

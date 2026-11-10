@@ -6,16 +6,16 @@
       "type": "footer",
       "settings": {
         "color_scheme": "scheme-1",
-        "newsletter_enable": true,
+        "newsletter_enable": false,
         "newsletter_heading": "Get new arrivals in your inbox",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
+        "enable_follow_on_shop": false,
+        "show_social": false,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
+        "payment_enable": false,
+        "show_policy": false,
         "margin_top": 0,
-        "padding_top": 56,
+        "padding_top": 52,
         "padding_bottom": 36
       },
       "blocks": {
@@ -25,25 +25,30 @@
             "show_social": true
           }
         },
-        "shop": {
-          "type": "link_list",
+        "quick": {
+          "type": "catalog_links",
           "settings": {
-            "heading": "Explore the store",
-            "menu": "main-menu"
+            "heading": "Quick links"
           }
         },
         "support": {
-          "type": "link_list",
+          "type": "support_links",
           "settings": {
-            "heading": "Customer support",
-            "menu": "footer"
+            "heading": "Support"
+          }
+        },
+        "policy": {
+          "type": "policy_links",
+          "settings": {
+            "heading": "Policy"
           }
         }
       },
       "block_order": [
         "brand",
-        "shop",
-        "support"
+        "quick",
+        "support",
+        "policy"
       ]
     }
   },

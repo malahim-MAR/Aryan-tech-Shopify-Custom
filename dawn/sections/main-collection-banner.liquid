@@ -1,41 +1,27 @@
-{% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
-{{ 'component-collection-hero.css' | asset_url | stylesheet_tag }}
-
-{%- style -%}
-  @media screen and (max-width: 749px) {
-    .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
-    }
-  }
-{%- endstyle -%}
-
-{% assign showcase_image = collection.image | default: collection.products.first.featured_image %}
-<div class="collection-hero color-{{ section.settings.color_scheme }} gradient">
-  <div class="page-width">
-    {% render 'hardware-breadcrumbs', collection: collection %}
-    <div class="tech-collection-intro">
-      <div>
-        <h1 class="collection-hero__title">{{ collection.title | escape }}</h1>
-        <p>{{ collection.all_products_count }} products</p>
-        {% if section.settings.show_collection_description and collection.description != blank %}
-          <div class="collection-hero__description rte">{{ collection.description }}</div>
-        {% endif %}
-        {% if collection.all_products_count > 0 %}
-          <a class="tech-cta" href="#ProductGridContainer">Browse products <span aria-hidden="true">↓</span></a>
-        {% endif %}
-      </div>
-      {% if section.settings.show_collection_image and showcase_image %}
-        {{ showcase_image | image_url: width: 1000 | image_tag: widths: '360, 540, 750, 1000', sizes: '(min-width: 750px) 40vw, 100vw', loading: 'eager', alt: '' }}
-      {% endif %}
-    </div>
+{% if section.settings.show_collection_image %}
+  <div class="at-collection-banner">
+    {% if section.settings.artwork %}
+      {{ section.settings.artwork | image_url: width: 2000 | image_tag: widths: '600, 960, 1440, 2000', sizes: '100vw', loading: 'eager', alt: collection.title }}
+    {% else %}
+      <a href="{{ collections['x-raypad'].url | default: routes.all_products_collection_url }}" aria-label="Shop X-Raypad mousepads">
+        <img src="{{ 'aryan-hero-desktop.webp' | asset_url }}" width="1440" height="480" alt="X-Raypad mousepads at Aryan Tech" loading="eager">
+      </a>
+    {% endif %}
   </div>
+{% endif %}
+<div class="at-shell at-collection-heading">
+  <h1>{{ collection.title | escape }}</h1>
+  <span>{{ collection.all_products_count }} products</span>
+  {% if section.settings.show_collection_description and collection.description != blank %}
+    <div class="rte">{{ collection.description }}</div>
+  {% endif %}
 </div>
-
 {% schema %}
 {
   "name": "t:sections.main-collection-banner.name",
   "class": "section",
   "settings": [
+    {"type":"image_picker","id":"artwork","label":"Campaign image override"},
     {
       "type": "paragraph",
       "content": "t:sections.main-collection-banner.settings.paragraph.content"

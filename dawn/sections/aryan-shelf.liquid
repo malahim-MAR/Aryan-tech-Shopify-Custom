@@ -1,0 +1,23 @@
+{% liquid
+  assign source = section.settings.collection
+  if source == blank and section.settings.use_all
+    assign source = collections.all
+  endif
+%}
+{% if source.products_count > 0 or request.design_mode %}
+  <section class="at-shell at-shelf" aria-labelledby="shelf-{{ section.id }}">
+    <header><h2 id="shelf-{{ section.id }}">{{ section.settings.title | default: source.title | escape }}</h2>
+      {% if source != blank %}<a class="at-view" href="{{ source.url }}">View all <span aria-hidden="true">↗</span></a>{% endif %}
+    </header>
+    <ul role="list" class="at-shelf__grid">
+      {% for item in source.products limit: section.settings.limit %}
+        <li>{% render 'aryan-catalog-card', item: item, loading: 'lazy' %}</li>
+      {% else %}
+        <li>Select a collection with published products.</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endif %}
+{% schema %}
+{"name":"Product shelf","settings":[{"type":"text","id":"title","label":"Heading"},{"type":"collection","id":"collection","label":"Collection"},{"type":"checkbox","id":"use_all","label":"Use all products when no collection is selected","default":false},{"type":"range","id":"limit","label":"Product count","min":4,"max":12,"step":1,"default":4}],"presets":[{"name":"Product shelf"}]}
+{% endschema %}

@@ -1,0 +1,42 @@
+<section class="at-campaign" aria-label="Aryan Tech campaigns">
+  <at-campaign>
+    {% for block in section.blocks %}
+      {% liquid
+        assign source = block.settings.collection
+        assign target = block.settings.link | default: source.url | default: routes.all_products_collection_url
+        assign loading = 'lazy'
+        if forloop.first
+          assign loading = 'eager'
+        endif
+      %}
+      <a class="at-slide" href="{{ target }}" aria-label="{{ block.settings.label | escape }}" data-panel {{ block.shopify_attributes }} {% unless forloop.first %}hidden{% endunless %}>
+        <picture>
+          {% if block.settings.mobile %}
+            <source media="(max-width: 639px)" srcset="{{ block.settings.mobile | image_url: width: 780 }}">
+          {% elsif block.settings.asset == 'aryan-hero-desktop.webp' and block.settings.image == blank %}
+            <source media="(max-width: 639px)" srcset="{{ 'aryan-hero-mobile.webp' | asset_url }}">
+          {% endif %}
+          {% if block.settings.image %}
+            {{ block.settings.image | image_url: width: 2200 | image_tag: widths: '600, 960, 1440, 1920, 2200', sizes: '100vw', loading: loading, alt: block.settings.label }}
+          {% else %}
+            <img width="1440" height="540" src="{{ block.settings.asset | asset_url }}" loading="{{ loading }}" alt="{{ block.settings.label | escape }}">
+          {% endif %}
+        </picture>
+        {% if block.settings.heading != blank %}
+          <span class="at-slide__copy"><strong>{{ block.settings.heading | escape }}</strong><span>{{ block.settings.label | escape }} →</span></span>
+        {% endif %}
+      </a>
+    {% endfor %}
+    {% if section.blocks.size > 1 %}
+      <div class="at-dots" hidden>
+        {% for block in section.blocks %}
+          <button type="button" aria-label="{{ block.settings.label | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </at-campaign>
+</section>
+<script src="{{ 'aryan-campaign.js' | asset_url }}" defer></script>
+{% schema %}
+{"name":"Campaign carousel","max_blocks":8,"blocks":[{"type":"slide","name":"Campaign","settings":[{"type":"text","id":"label","label":"Link label","default":"Shop X-Raypad"},{"type":"text","id":"heading","label":"Optional overlay headline"},{"type":"collection","id":"collection","label":"Collection"},{"type":"url","id":"link","label":"Link override"},{"type":"image_picker","id":"image","label":"Desktop artwork"},{"type":"image_picker","id":"mobile","label":"Mobile artwork"},{"type":"select","id":"asset","label":"Built-in artwork","default":"aryan-hero-desktop.webp","options":[{"value":"aryan-hero-desktop.webp","label":"X-Raypad campaign"},{"value":"aryan-keyboard-editorial.webp","label":"Keyboards"},{"value":"aryan-mouse-editorial.webp","label":"Gaming mice"}]}]}],"presets":[{"name":"Campaign carousel","blocks":[{"type":"slide"}]}]}
+{% endschema %}

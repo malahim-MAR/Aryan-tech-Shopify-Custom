@@ -101,10 +101,34 @@
                         {%- endfor -%}
                       </ul>
                     {%- endif -%}
+                  {% when 'catalog_links' %}
+                    <ul class="footer-block__details-content list-unstyled">{% render 'aryan-catalog-links', placement: 'footer' %}</ul>
+                  {% when 'support_links' %}
+                    <ul class="footer-block__details-content list-unstyled">
+                      {% assign support_handles = 'about-aryan-tech,contact,reviews' | split: ',' %}
+                      {% for handle in support_handles %}
+                        {% assign support_page = pages[handle] %}
+                        {% if support_page != blank %}
+                          <li><a class="link link--text list-menu__item list-menu__item--link" href="{{ support_page.url }}">{{ support_page.title | escape }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if shop.customer_accounts_enabled %}
+                        <li><a class="link link--text list-menu__item list-menu__item--link" href="{{ routes.account_url }}">My account</a></li>
+                      {% endif %}
+                      <li><a class="link link--text list-menu__item list-menu__item--link" href="{{ routes.search_url }}">Search</a></li>
+                    </ul>
+                  {% when 'policy_links' %}
+                    <ul class="footer-block__details-content list-unstyled">
+                      {% for policy in shop.policies %}
+                        {% if policy != blank %}
+                          <li><a class="link link--text list-menu__item list-menu__item--link" href="{{ policy.url }}">{{ policy.title | escape }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
                   {%- when 'brand_information' -%}
                     <div class="footer-block__brand-info">
                       {% if settings.brand_image == blank and settings.brand_headline == blank %}
-                        <a class="tech-wordmark" href="{{ routes.root_url }}">{{ shop.name | escape }}</a>
+                        <a href="{{ routes.root_url }}"><img class="at-footer-logo" src="{{ 'aryan-store-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="96" height="96" loading="lazy"></a>
                       {% endif %}
                       {%- if settings.brand_image != blank -%}
                         {%- assign brand_image_height = settings.brand_image_width
@@ -328,6 +352,9 @@
 {
   "name": "t:sections.footer.name",
   "blocks": [
+    {"type":"catalog_links","name":"Quick links","settings":[{"type":"inline_richtext","id":"heading","label":"Heading","default":"Quick links"}]},
+    {"type":"support_links","name":"Support links","settings":[{"type":"inline_richtext","id":"heading","label":"Heading","default":"Support"}]},
+    {"type":"policy_links","name":"Store policies","settings":[{"type":"inline_richtext","id":"heading","label":"Heading","default":"Policy"}]},
     {
       "type": "@app"
     },

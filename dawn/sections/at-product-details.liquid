@@ -1,0 +1,95 @@
+{%- liquid
+  assign specs = product.metafields.custom.specifications
+  assign rating = product.metafields.reviews.rating.value
+  assign faq_blocks = section.blocks | where: 'type', 'question'
+  assign review_apps = section.blocks | where: 'type', '@app'
+  assign has_questions = false
+  for block in faq_blocks
+    if block.settings.question != blank and block.settings.answer != blank
+      assign has_questions = true
+      break
+    endif
+  endfor
+-%}
+{{ 'at-product.css' | asset_url | stylesheet_tag }}
+<section class="at-details page-width" aria-label="Product details">
+  <nav class="at-details__nav" aria-label="On this page">
+    {% if product.description != blank %}<a href="#Overview-{{ section.id }}">Overview</a>{% endif %}
+    <a href="#Specs-{{ section.id }}">Specifications</a>
+    {% if rating or review_apps.size > 0 %}<a href="#Reviews-{{ section.id }}">Reviews</a>{% endif %}
+    {% if has_questions %}<a href="#Questions-{{ section.id }}">FAQ</a>{% endif %}
+  </nav>
+  {% if product.description != blank %}
+    <div class="at-details__panel" id="Overview-{{ section.id }}">
+      <h2>Product overview</h2>
+      <div class="rte">{{ product.description }}</div>
+    </div>
+  {% endif %}
+  <div class="at-details__panel" id="Specs-{{ section.id }}">
+    <h2>Specifications</h2>
+    <div>
+      <dl class="at-specifications">
+        <div><dt>Model</dt><dd>{{ product.title | escape }}</dd></div>
+        {% if product.vendor != blank %}<div><dt>Brand</dt><dd>{{ product.vendor | escape }}</dd></div>{% endif %}
+        {% if product.type != blank %}<div><dt>Product type</dt><dd>{{ product.type | escape }}</dd></div>{% endif %}
+        {% unless product.has_only_default_variant %}
+          {% for option in product.options_with_values %}
+            <div><dt>{{ option.name | escape }}</dt><dd>{% for value in option.values %}{{ value.name | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}</dd></div>
+          {% endfor %}
+        {% endunless %}
+      </dl>
+      {% if specs.type == 'rich_text_field' or specs.type == 'multi_line_text_field' or specs.type == 'single_line_text_field' %}
+        <div class="at-details__extra rte">{{ specs | metafield_tag }}</div>
+      {% endif %}
+    </div>
+  </div>
+  {% if rating or review_apps.size > 0 %}
+    <div class="at-details__panel" id="Reviews-{{ section.id }}">
+      <h2>Customer reviews</h2>
+      <div>
+        {% if rating %}
+          <p class="at-reviews-score"><span aria-hidden="true">★</span> {{ rating.rating }} / {{ rating.scale_max }}
+            {% if product.metafields.reviews.rating_count.value != blank %}<small>({{ product.metafields.reviews.rating_count.value }})</small>{% endif %}
+          </p>
+        {% endif %}
+        {% for block in review_apps %}{% render block %}{% endfor %}
+      </div>
+    </div>
+  {% endif %}
+  {% if has_questions or request.design_mode and faq_blocks.size > 0 %}
+    <div class="at-details__panel" id="Questions-{{ section.id }}">
+      <h2>Frequently asked questions</h2>
+      <div>
+        {% for block in faq_blocks %}
+          {% if block.settings.question != blank and block.settings.answer != blank %}
+            <details class="at-faq" {{ block.shopify_attributes }}>
+              <summary>{{ block.settings.question | escape }} <span aria-hidden="true">+</span></summary>
+              <div class="rte">{{ block.settings.answer }}</div>
+            </details>
+          {% elsif request.design_mode %}
+            <p {{ block.shopify_attributes }}>Enter a question and answer for this product.</p>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+{% schema %}
+{
+  "name": "Product details",
+  "enabled_on": { "templates": ["product"] },
+  "limit": 1,
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Answer" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Product details" }]
+}
+{% endschema %}

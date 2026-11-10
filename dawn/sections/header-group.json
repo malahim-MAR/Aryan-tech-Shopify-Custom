@@ -10,19 +10,18 @@
       "type": "header",
       "settings": {
         "logo_position": "middle-left",
-        "mobile_logo_position": "left",
-        "menu": "main-menu",
+        "mobile_logo_position": "center",
+        "menu": "",
         "menu_type_desktop": "dropdown",
-        "sticky_header_type": "on-scroll-up",
-        "show_line_separator": true,
-        "color_scheme": "scheme-1",
+        "sticky_header_type": "always",
+        "show_line_separator": false,
+        "color_scheme": "scheme-4",
         "menu_color_scheme": "scheme-1",
-        "enable_country_selector": true,
-        "enable_language_selector": true,
+        "enable_country_selector": false,
+        "enable_language_selector": false,
         "margin_bottom": 0,
-        "padding_top": 12,
-        "padding_bottom": 12,
-        "hardware_directory": true
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },

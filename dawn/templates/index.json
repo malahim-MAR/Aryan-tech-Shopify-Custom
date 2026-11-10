@@ -1,181 +1,203 @@
 {
   "sections": {
-    "showcase": {
-      "type": "hardware-showcase",
+    "hero": {
+      "type": "aryan-campaign",
       "blocks": {
-        "graphics": {
-          "type": "feature",
+        "xray": {
+          "type": "slide",
           "settings": {
-            "title": "ROG Astral GeForce RTX 5080",
-            "label": "Graphics cards",
-            "art": "tech-hero.webp",
-            "query": "graphics card"
+            "collection": "x-raypad",
+            "label": "Shop X-Raypad mousepads",
+            "asset": "aryan-hero-desktop.webp"
           }
         },
-        "displays": {
-          "type": "feature",
+        "womier": {
+          "type": "slide",
           "settings": {
-            "title": "Gaming monitors",
-            "label": "Monitors & displays",
-            "art": "tech-monitors.webp",
-            "query": "monitor"
+            "collection": "keyboards",
+            "heading": "Womier Duo 87",
+            "label": "Shop keyboards",
+            "asset": "aryan-keyboard-editorial.webp"
           }
         },
-        "chassis": {
-          "type": "feature",
+        "atk": {
+          "type": "slide",
           "settings": {
-            "title": "Gaming PC cases",
-            "label": "PC components",
-            "art": "tech-cases.webp",
-            "query": "case"
+            "collection": "mouse",
+            "heading": "ATK A9 Pro Max 2.0",
+            "label": "Shop mice",
+            "asset": "aryan-mouse-editorial.webp"
           }
         }
       },
       "block_order": [
-        "graphics",
-        "displays",
-        "chassis"
+        "xray",
+        "womier",
+        "atk"
       ],
       "settings": {}
     },
-    "departments": {
-      "type": "hardware-categories",
+    "stories": {
+      "type": "aryan-stories",
       "blocks": {
-        "graphics_cards": {
-          "type": "department",
-          "settings": {
-            "title": "Graphics cards",
-            "query": "graphics card",
-            "art": "tech-graphics-cards.webp"
-          }
-        },
-        "monitors": {
-          "type": "department",
-          "settings": {
-            "title": "Monitors",
-            "query": "monitor",
-            "art": "tech-monitors.webp"
-          }
-        },
-        "laptops": {
-          "type": "department",
-          "settings": {
-            "title": "Laptops",
-            "query": "laptop",
-            "art": "tech-laptops.webp"
-          }
-        },
-        "cases": {
-          "type": "department",
-          "settings": {
-            "title": "PC cases",
-            "query": "case",
-            "art": "tech-cases.webp"
-          }
-        },
         "keyboards": {
-          "type": "department",
+          "type": "category",
           "settings": {
+            "collection": "keyboards",
             "title": "Keyboards",
-            "query": "keyboard",
-            "art": "tech-keyboards.webp"
+            "art": "aryan-keyboards.webp"
           }
         },
-        "mice": {
-          "type": "department",
+        "mouse": {
+          "type": "category",
           "settings": {
+            "collection": "mouse",
             "title": "Mice",
-            "query": "mouse",
-            "art": "tech-mice.webp"
+            "art": "aryan-mouse.webp"
           }
         },
-        "headphones": {
-          "type": "department",
+        "mousepads": {
+          "type": "category",
           "settings": {
-            "title": "Headphones",
-            "query": "headphones",
-            "art": "tech-headphones.webp"
+            "collection": "mousepads",
+            "title": "Mousepads",
+            "art": "aryan-mousepads.webp"
           }
         },
-        "chairs": {
-          "type": "department",
+        "key_caps": {
+          "type": "category",
           "settings": {
-            "title": "Gaming chairs",
-            "query": "gaming chair",
-            "art": "tech-chairs.webp"
+            "collection": "key-caps",
+            "title": "Keycaps",
+            "art": "aryan-key-caps.webp"
+          }
+        },
+        "key_switches": {
+          "type": "category",
+          "settings": {
+            "collection": "key-switches",
+            "title": "Switches",
+            "art": "aryan-key-switches.webp"
           }
         }
       },
       "block_order": [
-        "graphics_cards",
-        "monitors",
-        "laptops",
-        "cases",
         "keyboards",
-        "mice",
-        "headphones",
-        "chairs"
+        "mouse",
+        "mousepads",
+        "key_caps",
+        "key_switches"
       ],
       "settings": {}
     },
-    "deals": {
-      "type": "tech-deals",
-      "settings": {}
-    },
-    "featured_collection": {
-      "type": "featured-collection",
+    "xray": {
+      "type": "aryan-shelf",
       "settings": {
-        "title": "Featured tech & handpicked hardware",
-        "collection": "all",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "image_ratio": "square",
-        "show_vendor": true,
-        "quick_add": "standard",
-        "show_view_all": true
+        "title": "X-Raypad",
+        "collection": "x-raypad",
+        "use_all": false,
+        "limit": 4
       }
     },
-    "brands": {
-      "type": "tech-brands",
-      "settings": {}
-    },
-    "latest": {
-      "type": "tech-latest",
-      "settings": {}
-    },
-    "bestsellers": {
-      "type": "featured-collection",
-      "disabled": true,
+    "keyboards": {
+      "type": "aryan-shelf",
       "settings": {
-        "title": "Best sellers",
-        "collection": "",
-        "products_to_show": 8,
-        "columns_desktop": 4,
-        "image_ratio": "square",
-        "show_vendor": true,
-        "quick_add": "standard",
-        "show_view_all": true
+        "title": "Mechanical keyboards",
+        "collection": "keyboards",
+        "use_all": false,
+        "limit": 4
       }
     },
-    "guides": {
+    "features": {
+      "type": "aryan-editorials",
+      "blocks": {
+        "womier": {
+          "type": "campaign",
+          "settings": {
+            "heading": "Womier Duo 87",
+            "button": "Explore keyboards",
+            "collection": "keyboards",
+            "art": "aryan-keyboard-editorial.webp"
+          }
+        },
+        "atk": {
+          "type": "campaign",
+          "settings": {
+            "heading": "ATK A9 Pro Max 2.0",
+            "button": "Explore gaming mice",
+            "collection": "mouse",
+            "art": "aryan-mouse-editorial.webp"
+          }
+        }
+      },
+      "block_order": [
+        "womier",
+        "atk"
+      ],
+      "settings": {}
+    },
+    "mice": {
+      "type": "aryan-shelf",
+      "settings": {
+        "title": "Gaming mice",
+        "collection": "mouse",
+        "use_all": false,
+        "limit": 4
+      }
+    },
+    "accessories": {
+      "type": "aryan-shelf",
+      "settings": {
+        "title": "Accessories",
+        "collection": "accessories",
+        "use_all": false,
+        "limit": 4
+      }
+    },
+    "reviews": {
       "type": "featured-blog",
-      "disabled": true,
       "settings": {
-        "heading": "Hardware guides & benchmarks",
+        "heading": "Reviews & guides",
+        "blog": "reviews",
+        "post_limit": 3,
         "show_image": true,
         "show_date": true,
-        "post_limit": 3
+        "show_view_all": true
       }
+    },
+    "services": {
+      "type": "aryan-services",
+      "blocks": {
+        "shipping": {
+          "type": "shipping",
+          "settings": {}
+        },
+        "returns": {
+          "type": "returns",
+          "settings": {}
+        },
+        "support": {
+          "type": "support",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "shipping",
+        "returns",
+        "support"
+      ],
+      "settings": {}
     }
   },
   "order": [
-    "showcase",
-    "departments",
-    "deals",
-    "featured_collection",
-    "brands",
-    "latest",
-    "bestsellers",
-    "guides"
+    "hero",
+    "stories",
+    "xray",
+    "keyboards",
+    "features",
+    "mice",
+    "accessories",
+    "reviews",
+    "services"
   ]
 }

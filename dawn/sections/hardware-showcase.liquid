@@ -1,3 +1,4 @@
+{{ 'hardware-store.css' | asset_url | stylesheet_tag }}
 <section class="tech-wrap tech-hero" aria-labelledby="hero-{{ section.id }}">
   <div class="tech-intro">
     {% if section.settings.label != blank %}<span class="tech-kicker">{{ section.settings.label | escape }}</span>{% endif %}

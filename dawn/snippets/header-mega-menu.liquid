@@ -9,7 +9,7 @@
 
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
-    {% if section.settings.hardware_directory %}{% render 'tech-shop-menu' %}{% endif %}
+    {% if section.settings.menu == blank and section.settings.catalog_fallback %}{% render 'aryan-catalog-links' %}{% endif %}
     {%- for link in section.settings.menu.links -%}
       <li>
         {%- if link.links != blank -%}

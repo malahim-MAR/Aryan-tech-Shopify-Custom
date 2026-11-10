@@ -147,7 +147,7 @@
   {% if header_tag == 'sticky-header' %}
     data-sticky-type="{{ section.settings.sticky_header_type }}"
   {% endif %}
-  class="header-wrapper tech-header color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
+  class="header-wrapper tech-header{% if request.page_type == 'index' %} at-home-header{% endif %} color-{{ section.settings.color_scheme }} gradient{% if section.settings.show_line_separator %} header-wrapper--border-bottom{% endif %}"
 >
   {%- liquid
     assign social_links = false
@@ -165,14 +165,14 @@
       assign language_selector = true
     endif
   -%}
-  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank or section.settings.hardware_directory %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
+  <header class="header header--{{ section.settings.logo_position }} header--mobile-{{ section.settings.mobile_logo_position }} page-width{% if section.settings.menu_type_desktop == 'drawer' %} drawer-menu{% endif %}{% if section.settings.menu != blank or section.settings.catalog_fallback %} header--has-menu{% endif %}{% if has_app_block %} header--has-app{% endif %}{% if social_links %} header--has-social{% endif %}{% if shop.customer_accounts_enabled %} header--has-account{% endif %}{% if country_selector or language_selector %} header--has-localizations{% endif %}">
     {%- liquid
       assign render_search_left = false
-      if section.settings.logo_position == 'top-center' or section.settings.menu == blank or shop.customer_accounts_enabled
+      if section.settings.logo_position == 'top-center' or shop.customer_accounts_enabled
         assign render_search_left = true
       endif
 
-      if section.settings.menu != blank or section.settings.hardware_directory
+      if section.settings.menu != blank or section.settings.catalog_fallback
         render 'header-drawer', show_country_selector: country_selector, show_language_selector: language_selector, show_social_links: social_links
       endif
 
@@ -206,7 +206,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2 tech-wordmark">{{ shop.name | escape }}</span>
+          <img class="at-brand-logo" src="{{ 'aryan-store-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="52" height="52">
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -215,7 +215,7 @@
     {%- endif -%}
 
     {%- liquid
-      if section.settings.menu != blank or section.settings.hardware_directory
+      if section.settings.menu != blank or section.settings.catalog_fallback
         if section.settings.menu_type_desktop == 'dropdown'
           render 'header-dropdown-menu'
         elsif section.settings.menu_type_desktop != 'drawer'
@@ -249,7 +249,7 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2 tech-wordmark">{{ shop.name | escape }}</span>
+          <img class="at-brand-logo" src="{{ 'aryan-store-logo.png' | asset_url }}" alt="{{ shop.name | escape }}" width="52" height="52">
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -505,7 +505,7 @@
   "class": "section-header",
   "max_blocks": 3,
   "settings": [
-    { "type": "checkbox", "id": "hardware_directory", "label": "Show hardware shopping directory", "default": true },
+    { "type": "checkbox", "id": "catalog_fallback", "label": "Use catalog navigation when no menu is selected", "default": true },
     {
       "type": "select",
       "id": "logo_position",
@@ -550,7 +550,6 @@
     {
       "type": "link_list",
       "id": "menu",
-      "default": "main-menu",
       "label": "t:sections.header.settings.menu.label"
     },
     {

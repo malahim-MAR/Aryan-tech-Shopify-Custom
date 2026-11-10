@@ -1,0 +1,25 @@
+{% doc %}
+  Renders Aryan Tech's default catalog navigation.
+  @param {string} [placement] - Use drawer or footer for their native link styles.
+{% enddoc %}
+{% liquid
+  assign handles = 'keyboards,mouse,mousepads,x-raypad,key-caps,key-switches,accessories,gamingfuel' | split: ','
+  assign names = 'Keyboards,Mouse,Mousepads,X-Raypad,Keycaps,Switches,Accessories,Gaming Fuel' | split: ','
+  case placement
+    when 'drawer'
+      assign link_class = 'menu-drawer__menu-item list-menu__item link link--text focus-inset'
+    when 'footer'
+      assign link_class = 'link link--text list-menu__item list-menu__item--link'
+    else
+      assign link_class = 'header__menu-item list-menu__item link focus-inset'
+  endcase
+%}
+<li><a class="{{ link_class }}" href="{{ routes.root_url }}">Home</a></li>
+{% for handle in handles %}
+  {% assign catalog_collection = collections[handle] %}
+  <li>
+    <a class="{{ link_class }}" href="{% if catalog_collection != blank %}{{ catalog_collection.url }}{% else %}{{ routes.search_url }}?type=product&amp;q={{ names[forloop.index0] | url_encode }}{% endif %}">
+      {{ names[forloop.index0] | escape }}
+    </a>
+  </li>
+{% endfor %}
