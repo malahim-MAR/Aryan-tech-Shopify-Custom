@@ -118,9 +118,9 @@
                     -%}
                     {%- assign priced_variant = product.selected_or_first_available_variant -%}
                     {%- if priced_variant.compare_at_price > priced_variant.price and priced_variant.available -%}
-                      <span class="at-saving">
+                      <span class="at-saving"><strong>{{ priced_variant.price | money }}</strong> <span>
                         Save {{ priced_variant.compare_at_price | minus: priced_variant.price | times: 100.0 | divided_by: priced_variant.compare_at_price | round }}%
-                      </span>
+                      </span></span>
                     {%- endif -%}
                   </div>
                   {%- if product.quantity_price_breaks_configured? -%}
@@ -695,6 +695,9 @@
                   {% render 'icon-with-text', block: block %}
               {%- endcase -%}
             {%- endfor -%}
+            {% if pages.contact != blank %}
+              <a class="at-bulk quick-add-hidden" href="{{ pages.contact.url }}"><small>Bulk order</small><strong>Corporate enquiries</strong><span>Get in touch →</span></a>
+            {% endif %}
             {%- if shop.shipping_policy.body != blank or shop.refund_policy.body != blank -%}
               <div class="at-policy-links quick-add-hidden">
                 {%- if shop.shipping_policy.body != blank -%}

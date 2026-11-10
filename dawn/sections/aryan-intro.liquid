@@ -1,0 +1,10 @@
+<section class="at-about">
+  <h2>{{ section.settings.heading | escape }}</h2>
+  <div class="rte">{{ section.settings.intro }}</div>
+  {% if section.settings.more != blank %}
+    <details><summary><span>Read more +</span><span>Read less −</span></summary><div class="rte">{{ section.settings.more }}</div></details>
+  {% endif %}
+</section>
+{% schema %}
+{"name":"Store introduction","settings":[{"type":"text","id":"heading","label":"Heading","default":"Aryan Tech — gaming gear in Pakistan"},{"type":"richtext","id":"intro","label":"Introduction","default":"<p>Explore mechanical keyboards, gaming mice and X-Raypad mousepads at Aryan Tech. Find the right layout, switch and surface for your desk.</p>"},{"type":"richtext","id":"more","label":"Expandable text","default":"<p>Browse keycaps and switches to customize your keyboard, or visit our reviews for a closer look at the gear.</p>"}],"presets":[{"name":"Store introduction"}]}
+{% endschema %}

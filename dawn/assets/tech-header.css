@@ -75,7 +75,7 @@
     margin-bottom: calc(-1 * var(--header-height, 7rem));
   }
   body:has(#MainContent > .shopify-section:first-child .at-campaign) .section-header:not(.scrolled-past-header) .at-home-header {
-    background: linear-gradient(to bottom, rgba(0,0,0,.78), rgba(0,0,0,.48));
+    background: linear-gradient(100deg,#3b172b,#882c47 45%,#43152b);
   }
   @media (max-width: 989px) {
     body:has(#MainContent > .shopify-section:first-child .at-campaign) .section-header:has(.at-home-header) {
@@ -87,4 +87,24 @@
   .at-ticker__track { animation: at-ticker-scroll 58s linear infinite; }
   .at-ticker:hover .at-ticker__track, .at-ticker:focus-visible .at-ticker__track { animation-play-state: paused; }
   @keyframes at-ticker-scroll { to { transform: translateX(-50%); } }
+}
+body:has(#MainContent > .shopify-section:first-child .at-campaign) .section-header .at-home-header {
+  width: auto;
+  margin-inline: clamp(22px,3vw,60px);
+  transform: translateY(12px);
+  border-radius: 100px;
+  background: linear-gradient(100deg,#3b172b,#882c47 45%,#43152b);
+  box-shadow: 0 4px 16px #16071725;
+}
+.at-home-header .header { min-height: 5.8rem; }
+.at-utility-links { display:flex; justify-content:flex-end; flex-wrap:wrap; gap:8px 22px; padding:10px clamp(20px,3vw,60px); background:#f0f0f2; font-size:12px; font-weight:600; }
+.at-utility-links a { color:#4b4051; text-decoration:none; }
+.footer:has(.at-footer-logo), .footer:has(.footer__blocks-wrapper) { background:#f0f0f2; color:#26304c; }
+.footer .footer__content-top { max-width:none; margin-inline:clamp(12px,2vw,40px); padding:clamp(24px,4vw,72px); border-radius:32px; background:#192447; color:#fff; --color-foreground:245,247,255; --color-background:25,36,71; }
+.footer .footer__content-top .footer-block__heading { color:#fff; }
+.footer .footer__content-top .list-menu__item--link { color:#d2d8ec; }
+.footer .at-footer-logo { filter:invert(1); }
+@media(max-width:749px) {
+  .at-home-header .header { min-height:5rem; }
+  .at-utility-links { justify-content:center; font-size:11px; gap:12px; }
 }

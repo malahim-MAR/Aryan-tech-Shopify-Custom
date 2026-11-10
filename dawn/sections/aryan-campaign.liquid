@@ -23,11 +23,16 @@
           {% endif %}
         </picture>
         {% if block.settings.heading != blank %}
-          <span class="at-slide__copy"><strong>{{ block.settings.heading | escape }}</strong><span>{{ block.settings.label | escape }} →</span></span>
+          <span class="at-slide__copy"><strong>{{ block.settings.heading | escape }}</strong></span>
         {% endif %}
+        <span class="at-campaign__shop">{{ block.settings.label | escape }} <span aria-hidden="true">↗</span></span>
       </a>
     {% endfor %}
     {% if section.blocks.size > 1 %}
+      <div class="at-arrows" hidden>
+        <button type="button" data-step="-1" aria-label="Previous campaign">‹</button>
+        <button type="button" data-step="1" aria-label="Next campaign">›</button>
+      </div>
       <div class="at-dots" hidden>
         {% for block in section.blocks %}
           <button type="button" aria-label="{{ block.settings.label | escape }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"></button>

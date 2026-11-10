@@ -1,3 +1,11 @@
+{% if request.page_type == 'index' %}
+  <nav class="at-utility-links" aria-label="Store information">
+    {% if pages['about-aryan-tech'] != blank %}<a href="{{ pages['about-aryan-tech'].url }}">About Aryan Tech</a>{% endif %}
+    {% if blogs.reviews != blank %}<a href="{{ blogs.reviews.url }}">Gear reviews</a>{% endif %}
+    {% if shop.shipping_policy.body != blank %}<a href="{{ shop.shipping_policy.url }}">Delivery</a>{% endif %}
+    {% if pages.contact != blank %}<a href="{{ pages.contact.url }}">Contact us</a>{% endif %}
+  </nav>
+{% else %}
 <a class="at-ticker" href="{{ section.settings.link | default: routes.all_products_collection_url }}">
   <span class="visually-hidden">{{ section.settings.message | escape }}. {{ section.settings.link_text | escape }}</span>
   <span class="at-ticker__track" aria-hidden="true">
@@ -13,6 +21,7 @@
   </span>
 </a>
 
+{% endif %}
 {% schema %}
 {
   "name": "Announcement ticker",

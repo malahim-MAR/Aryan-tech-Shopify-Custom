@@ -31,9 +31,9 @@
         }
       },
       "block_order": [
+        "atk",
         "xray",
-        "womier",
-        "atk"
+        "womier"
       ],
       "settings": {}
     },
@@ -88,7 +88,8 @@
         "key_caps",
         "key_switches"
       ],
-      "settings": {}
+      "settings": {},
+      "disabled": true
     },
     "xray": {
       "type": "aryan-shelf",
@@ -187,17 +188,205 @@
         "support"
       ],
       "settings": {}
+    },
+    "trending": {
+      "type": "aryan-shelf",
+      "settings": {
+        "title": "Top trending",
+        "trending": true,
+        "use_all": true,
+        "limit": 8
+      },
+      "blocks": {
+        "pick1": {
+          "type": "product",
+          "settings": {
+            "item": "womier-duo-87"
+          }
+        },
+        "pick2": {
+          "type": "product",
+          "settings": {
+            "item": "atk-a9-pro-max-2-0"
+          }
+        },
+        "pick3": {
+          "type": "product",
+          "settings": {
+            "item": "x-raypad-aqua-control-plus-gaming-mouse-pads-mint"
+          }
+        },
+        "pick4": {
+          "type": "product",
+          "settings": {
+            "item": "scyrox-v8s"
+          }
+        },
+        "pick5": {
+          "type": "product",
+          "settings": {
+            "item": "womier-sk80-pro"
+          }
+        }
+      },
+      "block_order": [
+        "pick1",
+        "pick2",
+        "pick3",
+        "pick4",
+        "pick5"
+      ]
+    },
+    "departments": {
+      "type": "hardware-categories",
+      "settings": {
+        "title": "Shop by category"
+      },
+      "blocks": {
+        "keyboards": {
+          "type": "department",
+          "settings": {
+            "collection": "keyboards",
+            "title": "Keyboards",
+            "art": "aryan-keyboards.webp"
+          }
+        },
+        "mouse": {
+          "type": "department",
+          "settings": {
+            "collection": "mouse",
+            "title": "Gaming mice",
+            "art": "aryan-mouse.webp"
+          }
+        },
+        "mousepads": {
+          "type": "department",
+          "settings": {
+            "collection": "mousepads",
+            "title": "Mousepads",
+            "art": "aryan-mousepads.webp"
+          }
+        },
+        "x_raypad": {
+          "type": "department",
+          "settings": {
+            "collection": "x-raypad",
+            "title": "X-Raypad",
+            "art": "aryan-x-raypad.webp"
+          }
+        },
+        "key_caps": {
+          "type": "department",
+          "settings": {
+            "collection": "key-caps",
+            "title": "Keycaps",
+            "art": "aryan-key-caps.webp"
+          }
+        },
+        "key_switches": {
+          "type": "department",
+          "settings": {
+            "collection": "key-switches",
+            "title": "Switches",
+            "art": "aryan-key-switches.webp"
+          }
+        },
+        "accessories": {
+          "type": "department",
+          "settings": {
+            "collection": "accessories",
+            "title": "Accessories",
+            "art": "aryan-accessories.webp"
+          }
+        },
+        "gamingfuel": {
+          "type": "department",
+          "settings": {
+            "collection": "gamingfuel",
+            "title": "Gaming fuel",
+            "art": "aryan-gamingfuel.webp"
+          }
+        }
+      },
+      "block_order": [
+        "keyboards",
+        "mouse",
+        "mousepads",
+        "x_raypad",
+        "key_caps",
+        "key_switches",
+        "accessories",
+        "gamingfuel"
+      ]
+    },
+    "films": {
+      "type": "aryan-media-rail",
+      "settings": {
+        "heading": "Inside the setup"
+      },
+      "blocks": {
+        "pick1": {
+          "type": "story",
+          "settings": {
+            "product": "womier-duo-87",
+            "caption": "Womier Duo 87",
+            "art": "aryan-keyboard-editorial.webp"
+          }
+        },
+        "pick2": {
+          "type": "story",
+          "settings": {
+            "product": "atk-a9-pro-max-2-0",
+            "caption": "ATK A9 Pro Max 2.0",
+            "art": "aryan-mouse-editorial.webp"
+          }
+        },
+        "pick3": {
+          "type": "story",
+          "settings": {
+            "product": "x-raypad-aqua-control-plus-gaming-mouse-pads-mint",
+            "caption": "Aqua Control Plus",
+            "art": "aryan-x-raypad.webp"
+          }
+        },
+        "pick4": {
+          "type": "story",
+          "settings": {
+            "product": "scyrox-v8s",
+            "caption": "Scyrox V8S",
+            "art": "aryan-mouse-editorial.webp"
+          }
+        },
+        "pick5": {
+          "type": "story",
+          "settings": {
+            "product": "womier-sk80-pro",
+            "caption": "Womier SK80 Pro",
+            "art": "aryan-keyboards.webp"
+          }
+        }
+      },
+      "block_order": [
+        "pick1",
+        "pick2",
+        "pick3",
+        "pick4",
+        "pick5"
+      ]
     }
   },
   "order": [
     "hero",
-    "stories",
-    "xray",
+    "trending",
+    "departments",
+    "films",
     "keyboards",
+    "xray",
     "features",
     "mice",
     "accessories",
     "reviews",
-    "services"
+    "services",
+    "stories"
   ]
 }

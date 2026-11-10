@@ -87,3 +87,58 @@ at-campaign { display: block; position: relative; }
 .tech-crumbs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: #555; font-size: 13px; }
 .tech-crumbs a { color: inherit; text-decoration: none; }
 .tech-crumbs [aria-current] { max-width: min(65vw,55ch); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+/* Campaign, category browsing and editorial media */
+.at-campaign {
+  margin-inline: clamp(12px,2vw,40px);
+  padding: 0;
+  background: #241425;
+  border-radius: clamp(22px,2.7vw,48px);
+  overflow: hidden;
+}
+.at-slide { border-radius: 0; aspect-ratio: 2.22; }
+.at-slide__copy { padding: 12% 8% 6%; justify-content: flex-end; background: linear-gradient(0deg,#150713d9,transparent 65%); }
+.at-slide__copy strong { max-width: 18ch; font-size: clamp(36px,5.4vw,88px); }
+.at-arrows button { position: absolute; top: 52%; transform: translateY(-50%); border: 0; width: clamp(34px,3vw,48px); height: clamp(34px,3vw,48px); border-radius: 50%; background: #ffffffce; color: #291424; font: 32px/1 Arial,sans-serif; cursor: pointer; }
+.at-arrows button:first-child { left: 1.3%; }
+.at-arrows button:last-child { right: 1.3%; }
+.at-arrows[hidden] { display:none; }
+.at-trending { max-width: none; padding: clamp(36px,4vw,72px) clamp(16px,2.3vw,44px); background: #f1f1f3; }
+.at-trending header h2,.at-film header h2 { width: fit-content; font-size: clamp(24px,2vw,35px); font-weight: 800; text-transform: uppercase; background: linear-gradient(105deg,#373c72,#692370,#ac2942); color: transparent; background-clip: text; }
+.at-trending .at-shelf__grid { grid-auto-columns: calc((100% - 78px)/4.12); gap: 20px; padding: 16px 0 10px; }
+.at-trending .at-card { background: transparent; border: none; overflow: visible; isolation: isolate; padding-left: 16px; }
+.at-trending .at-card::before { content: ''; position: absolute; inset: 20% 0 0 16px; z-index: -1; border-radius: 30px; background: #fff; clip-path: polygon(0 0,100% 16%,100% 100%,0 100%); }
+.at-trending .at-card__photo { position: static; aspect-ratio: 1.3; background: transparent; }
+.at-trending .at-card__photo img { mix-blend-mode: multiply; padding: 6px 9% 0; }
+.at-trending .at-tag { inset: auto auto 18% 0; max-height: 44%; color: #fff; background: linear-gradient(#a62946,#49367d); border-radius: 12px 0 0 12px; padding: 8px 3px; writing-mode: vertical-rl; font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
+.at-trending .at-card__body { padding: 18px; }
+.at-trending .at-card__buy { border-top: 1px solid #ddd; margin-top: auto; }
+.at-trending .at-maker { margin-bottom: 12px; }
+.at-trending .at-card__buy a { background: #405cb5; border-radius: 8px; }
+.at-film { max-width: 1920px; padding: clamp(32px,4vw,64px) clamp(16px,2vw,40px); background: #f1f1f3; }
+.at-film header { display: flex; align-items: center; gap: 0; margin-bottom: 30px; }
+.at-film header::before,.at-film header::after { content:''; flex:1; height:1px; background:#d9d9dc; }
+.at-film header h2 { margin: 0; padding: 12px 24px; border-radius: 50px; box-shadow: 0 6px 30px #16122c0d; }
+.at-film__track { display:grid; grid-auto-flow:column; grid-auto-columns: minmax(0,18%); gap:16px; padding:0 0 8px; margin:0; list-style:none; overflow-x:auto; scroll-snap-type:x proximity; }
+.at-film__track li { position: relative; aspect-ratio: 9/16; overflow:hidden; border-radius:26px; background:#242430; scroll-snap-align:start; }
+.at-film__photo,.at-film__photo img,.at-film__track video { width:100%; height:100%; display:block; object-fit:cover; }
+.at-film__caption { position:absolute; bottom:0; inset-inline:0; color:#fff; text-decoration:none; padding:48px 16px 18px; display:flex; align-items:center; gap:10px; background:linear-gradient(transparent,#000c); }
+.at-film__caption--video { bottom:auto; top:0; padding:12px; background:linear-gradient(#0008,transparent); }
+.at-film__caption strong,.at-film__caption small { display:block; line-height:1.25; }
+.at-film__caption img { width:40px; height:40px; border-radius:50%; }
+.at-about { padding:clamp(28px,4vw,64px) clamp(20px,3vw,60px); background:#f0f0f2; color:#363747; }
+.at-about h2 { font-weight:700; margin:0 0 12px; font-size:clamp(21px,2vw,30px); }
+.at-about summary { width:fit-content; cursor:pointer; margin-top:12px; font-weight:600; list-style:none; }
+.at-about details:not([open]) summary span:last-child,.at-about details[open] summary span:first-child { display:none; }
+@media(max-width:989px) {
+  .at-trending .at-shelf__grid { grid-auto-columns: 34%; }
+  .at-film__track { grid-auto-columns: 30%; }
+}
+@media(max-width:639px) {
+  .at-slide { aspect-ratio:4/5; }
+  .at-slide__copy { padding:25% 10% 18%; }
+  .at-trending .at-shelf__grid { grid-auto-columns: 72%; gap:12px; }
+  .at-film__track { grid-auto-columns:64%; }
+}
+.at-campaign__shop { position:absolute; bottom:0; right:0; padding:10px 28px; border-radius:28px 0 0 0; background:#f4f2f5; color:#272641; font-size:clamp(13px,1.4vw,21px); font-weight:750; }
+.at-campaign__shop span { margin-inline-start:5px; }
+@media(max-width:639px) { .at-campaign__shop { padding:8px 14px; font-size:12px; } .at-dots { left:18px; transform:none; } }

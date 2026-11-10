@@ -3,21 +3,88 @@
   if source == blank and section.settings.use_all
     assign source = collections.all
   endif
+  assign curated_count = 0
+  for block in section.blocks
+    if block.settings.item != blank
+      assign curated_count = curated_count | plus: 1
+    endif
+  endfor
 %}
-{% if source.products_count > 0 or request.design_mode %}
-  <section class="at-shell at-shelf" aria-labelledby="shelf-{{ section.id }}">
+{% if source.products_count > 0 or curated_count > 0 or request.design_mode %}
+  <section class="at-shell at-shelf{% if section.settings.trending %} at-trending{% endif %}" aria-labelledby="shelf-{{ section.id }}">
     <header><h2 id="shelf-{{ section.id }}">{{ section.settings.title | default: source.title | escape }}</h2>
       {% if source != blank %}<a class="at-view" href="{{ source.url }}">View all <span aria-hidden="true">↗</span></a>{% endif %}
     </header>
     <ul role="list" class="at-shelf__grid">
+      {% if curated_count > 0 %}
+        {% for block in section.blocks %}
+          {% if block.settings.item != blank %}
+            <li {{ block.shopify_attributes }}>{% render 'aryan-catalog-card', item: block.settings.item, loading: 'lazy' %}</li>
+          {% endif %}
+        {% endfor %}
+      {% else %}
       {% for item in source.products limit: section.settings.limit %}
         <li>{% render 'aryan-catalog-card', item: item, loading: 'lazy' %}</li>
       {% else %}
         <li>Select a collection with published products.</li>
       {% endfor %}
+      {% endif %}
     </ul>
   </section>
 {% endif %}
 {% schema %}
-{"name":"Product shelf","settings":[{"type":"text","id":"title","label":"Heading"},{"type":"collection","id":"collection","label":"Collection"},{"type":"checkbox","id":"use_all","label":"Use all products when no collection is selected","default":false},{"type":"range","id":"limit","label":"Product count","min":4,"max":12,"step":1,"default":4}],"presets":[{"name":"Product shelf"}]}
+{
+  "name": "Product shelf",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_all",
+      "label": "Use all products when no collection is selected",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Product count",
+      "min": 4,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "trending",
+      "label": "Use trending card layout",
+      "default": false
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product shelf"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Featured product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "item",
+          "label": "Product"
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}

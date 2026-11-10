@@ -8,7 +8,7 @@
     {% for block in section.blocks %}
       {% liquid
         assign department = block.settings.collection
-        assign label = department.title | default: block.settings.title
+        assign label = block.settings.title | default: department.title
         assign photo = block.settings.image | default: department.featured_image
         assign query = block.settings.query | default: label | url_encode
         assign fallback = routes.search_url | append: '?type=product&q=' | append: query
@@ -28,20 +28,125 @@
 </section>
 {% schema %}
 {
-  "name":"Hardware categories",
-  "settings":[{"type":"text","id":"title","label":"Heading","default":"Start with what you need."}],
-  "blocks":[{"type":"department","name":"Category","settings":[
-    {"type":"collection","id":"collection","label":"Collection"},
-    {"type":"image_picker","id":"image","label":"Image override"},
-    {"type":"text","id":"title","label":"Fallback category","default":"Graphics cards"},
-    {"type":"text","id":"query","label":"Fallback search term"},
-    {"type":"select","id":"art","label":"Built-in artwork","default":"tech-graphics-cards.webp","options":[
-      {"value":"tech-graphics-cards.webp","label":"Graphics card"},{"value":"tech-monitors.webp","label":"Monitor"},
-      {"value":"tech-laptops.webp","label":"Laptop"},{"value":"tech-cases.webp","label":"Case"},
-      {"value":"tech-keyboards.webp","label":"Keyboard"},{"value":"tech-mice.webp","label":"Mouse"},
-      {"value":"tech-headphones.webp","label":"Headphones"},{"value":"tech-chairs.webp","label":"Gaming chair"}
-    ]}
-  ]}],
-  "presets":[{"name":"Hardware categories","blocks":[{"type":"department"}]}]
+  "name": "Hardware categories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Start with what you need."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "department",
+      "name": "Category",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image override"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Fallback category",
+          "default": "Graphics cards"
+        },
+        {
+          "type": "text",
+          "id": "query",
+          "label": "Fallback search term"
+        },
+        {
+          "type": "select",
+          "id": "art",
+          "label": "Built-in artwork",
+          "default": "tech-graphics-cards.webp",
+          "options": [
+            {
+              "value": "tech-graphics-cards.webp",
+              "label": "Graphics card"
+            },
+            {
+              "value": "tech-monitors.webp",
+              "label": "Monitor"
+            },
+            {
+              "value": "tech-laptops.webp",
+              "label": "Laptop"
+            },
+            {
+              "value": "tech-cases.webp",
+              "label": "Case"
+            },
+            {
+              "value": "tech-keyboards.webp",
+              "label": "Keyboard"
+            },
+            {
+              "value": "tech-mice.webp",
+              "label": "Mouse"
+            },
+            {
+              "value": "tech-headphones.webp",
+              "label": "Headphones"
+            },
+            {
+              "value": "tech-chairs.webp",
+              "label": "Gaming chair"
+            },
+            {
+              "value": "aryan-keyboards.webp",
+              "label": "Aryan Tech · Keyboards"
+            },
+            {
+              "value": "aryan-mouse.webp",
+              "label": "Aryan Tech · Gaming mice"
+            },
+            {
+              "value": "aryan-mousepads.webp",
+              "label": "Aryan Tech · Mousepads"
+            },
+            {
+              "value": "aryan-x-raypad.webp",
+              "label": "Aryan Tech · X-Raypad"
+            },
+            {
+              "value": "aryan-key-caps.webp",
+              "label": "Aryan Tech · Keycaps"
+            },
+            {
+              "value": "aryan-key-switches.webp",
+              "label": "Aryan Tech · Switches"
+            },
+            {
+              "value": "aryan-accessories.webp",
+              "label": "Aryan Tech · Accessories"
+            },
+            {
+              "value": "aryan-gamingfuel.webp",
+              "label": "Aryan Tech · Gaming fuel"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hardware categories",
+      "blocks": [
+        {
+          "type": "department"
+        }
+      ]
+    }
+  ]
 }
 {% endschema %}

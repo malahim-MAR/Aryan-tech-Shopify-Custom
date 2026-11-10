@@ -7,6 +7,13 @@ if (!customElements.get('at-campaign')) {
       this.abort = new AbortController();
       const options = { signal: this.abort.signal };
       this.querySelector('.at-dots').hidden = false;
+      this.querySelector('.at-arrows').hidden = false;
+      this.querySelectorAll('[data-step]').forEach(button => {
+        button.addEventListener('click', () => {
+          const index = this.panels.findIndex(panel => !panel.hidden);
+          this.select((index + Number(button.dataset.step) + this.panels.length) % this.panels.length);
+        }, options);
+      });
       this.buttons.forEach((button, i) => button.addEventListener('click', () => this.select(i), options));
       this.addEventListener('shopify:block:select', event => {
         const index = this.panels.indexOf(event.target.closest('[data-panel]'));
